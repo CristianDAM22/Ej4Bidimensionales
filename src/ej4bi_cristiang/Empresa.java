@@ -31,22 +31,22 @@ public class Empresa {
     }
 
     public void pedirDatosEmpleado() {
-        
+
         String nombre;
         Fecha fechaAlta;
         int categoria;
         int numHijos;
-        
+
         for (int nEmpleados = 0; nEmpleados < empleados.length; nEmpleados++) {
             nombre = Utilidad.pedirString("Nombre del trabajador: ");
-            
+
             fechaAlta = Utilidad.pedirFechaMenorHoy("Dime la fecha de alta: ");
-           
+
             mostrarCategorias();
             categoria = Utilidad.pedirNumeroEntero("Categoria: ", 0, categorias.length - 1);
-            
+
             numHijos = (int) Utilidad.pedirNumeroEntero("Numero de hijos: ", 0);
-            
+
             empleados[nEmpleados] = new Empleado(nombre, fechaAlta, categoria, numHijos);
         }
     }
@@ -58,7 +58,7 @@ public class Empresa {
     }
 
     public void pedirDatosHijos() {
-       
+
         int total;
         Fecha fnac;
         boolean ingresos;
@@ -70,17 +70,65 @@ public class Empresa {
                 total = empleados[nEmple].getHijos().length;
 
                 for (int numHijos = 0; numHijos < total; numHijos++) {
-                    System.out.println("Hijo" + (numHijos + 1)+": ");
-                    
+                    System.out.println("Hijo" + (numHijos + 1) + ": ");
+
                     fnac = Utilidad.pedirFechaMenorHoy("Dime la fecha de nacimeinto:");
-                    
+
                     ingresos = Utilidad.pedirBoolean("¿Tiene ingresos superiores a 8000€?: ");
-                    
+
                     empleados[nEmple].setUnHijo(new Hijo(fnac, ingresos), numHijos);
                     // empleados[nEmple].setUnHijo (fnac,ingresos,numHijos);
                 }
             }
         }
 
+    }
+
+    public void informe() {
+        cabecera();
+        int fila;//numHijosComputables
+        float irpfVariable;
+        for (int pos = 0; pos < empleados.length; pos++) {
+            fila = empleados[pos].numeroHijosComputables();
+           
+            System.out.print(empleados[pos].getNombre());
+           
+            System.out.print("\t" + categorias[empleados[pos].getCodCategoria()].getNombre());
+            
+            System.out.print("\t " + empleados[pos].getFechaAlta().fechaComepleta());
+            
+            System.out.print("\t " + fila);
+            
+            if (fila>irpf.length){
+                fila=irpf.length-1;
+            }
+            
+            irpfVariable = irpf[fila][buscarColumna(categorias[empleados[pos].getCodCategoria()].getSueldoBase())];
+            System.out.print("\t" + categorias[empleados[pos].getCodCategoria()].getSueldoBase());
+            
+            System.out.print("\t" + irpfVariable);
+            
+            float neto = categorias[empleados[pos].getCodCategoria()].getSueldoBase()
+                    * (1 - irpfVariable);
+            System.out.println("\t" + neto);
+        }
+    }
+
+    public void cabecera() {
+        System.out.println(" \t\t INFORME DE VENTAS:");
+        System.out.print("Nombre");
+        System.out.print("\t Fecha de alta");
+        System.out.print("\t Categoria");
+        System.out.print("\t Sueldo base");
+        System.out.print("\t IRPF");
+        System.out.print("\t Sueldo neto");
+    }
+
+    private int buscarColumna(float sueldo) {
+        int pos = 0;
+        while (limites[pos] < sueldo) {
+            pos++;
+        }
+        return pos;
     }
 }

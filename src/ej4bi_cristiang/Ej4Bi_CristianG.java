@@ -11,6 +11,7 @@ public class Ej4Bi_CristianG {
         miEmpresa = new Empresa(nEmpleados);
         miEmpresa.pedirDatosEmpleado();
         miEmpresa.pedirDatosHijos();
+        miEmpresa.informe();
     }
 
 }
