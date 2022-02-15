@@ -31,16 +31,22 @@ public class Empresa {
     }
 
     public void pedirDatosEmpleado() {
+        
         String nombre;
         Fecha fechaAlta;
         int categoria;
         int numHijos;
+        
         for (int nEmpleados = 0; nEmpleados < empleados.length; nEmpleados++) {
             nombre = Utilidad.pedirString("Nombre del trabajador: ");
+            
             fechaAlta = Utilidad.pedirFechaMenorHoy("Dime la fecha de alta: ");
+           
             mostrarCategorias();
             categoria = Utilidad.pedirNumeroEntero("Categoria: ", 0, categorias.length - 1);
+            
             numHijos = (int) Utilidad.pedirNumeroEntero("Numero de hijos: ", 0);
+            
             empleados[nEmpleados] = new Empleado(nombre, fechaAlta, categoria, numHijos);
         }
     }
@@ -52,13 +58,26 @@ public class Empresa {
     }
 
     public void pedirDatosHijos() {
+       
         int total;
+        Fecha fnac;
+        boolean ingresos;
+
         for (int nEmple = 0; nEmple < empleados.length; nEmple++) {
             System.out.println(empleados[nEmple].getNombre());
+
             if (empleados[nEmple].getHijos() != null) {
                 total = empleados[nEmple].getHijos().length;
+
                 for (int numHijos = 0; numHijos < total; numHijos++) {
+                    System.out.println("Hijo" + (numHijos + 1)+": ");
                     
+                    fnac = Utilidad.pedirFechaMenorHoy("Dime la fecha de nacimeinto:");
+                    
+                    ingresos = Utilidad.pedirBoolean("¿Tiene ingresos superiores a 8000€?: ");
+                    
+                    empleados[nEmple].setUnHijo(new Hijo(fnac, ingresos), numHijos);
+                    // empleados[nEmple].setUnHijo (fnac,ingresos,numHijos);
                 }
             }
         }

@@ -28,8 +28,9 @@ public class Empleado {
 
     /*public void setUnHijo(Fecha fechaNacimiento,boolean ingresos){
         Hijo hijo=new Hijo(fechaNacimiento,ingresos);
-        
+        hijos[pos]=hijo;
     }Este metodo se usaria si hubieramos usado el constructor que recibe todos los datos*/
+    
     public String getNombre() {
         return nombre;
     }

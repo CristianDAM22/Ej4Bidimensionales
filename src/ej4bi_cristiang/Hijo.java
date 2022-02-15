@@ -9,6 +9,11 @@ public class Hijo {
 
     public Hijo() {//Te voy a dar yo la info de los hijos es decir los creo vacios
     }
+    public Hijo(Fecha fn, boolean mas25) {
+        fn = fechaNacimeinto;
+        mas25 = ingresos;
+    }
+    
 
     public void grabarInfoHijo(Fecha fn, boolean mas25) {/*Aqui le pasas los datos,pero podrias 
                                                 pasar los datos directamente al constructor*/
